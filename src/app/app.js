@@ -2,7 +2,8 @@
 import React from 'react';
 import Radium from 'radium';
 import { styles } from './styles';
-import ColorBox from './colorBox';
+import ColorInput from './colorInput/colorInput';
+import ColorBox from './colorBox/colorBox';
 
 class App extends React.Component {
   state: {
@@ -34,41 +35,18 @@ class App extends React.Component {
   }
 
   render() {
-    const errorText = valid =>
-      <p style={styles.errorText(valid)}>
-        Invalid hex color entered
-      </p>;
-
     return (
       <div style={styles.app}>
         <h1 style={styles.header}>Colors Demo</h1>
-        <div style={styles.inputContainer}>
-          <label style={styles.label}>
-            Enter a hex color:
-            <input
-              type="text"
-              id="color1"
-              key="1"
-              style={styles.input}
-              onChange={this.updateColor} />
-            {errorText(this.state.color1valid)}
-          </label>
-        </div>
-        <div style={styles.inputContainer}>
-          <label style={styles.label}>
-            Enter another hex color:
-            <input
-              type="text"
-              id="color2"
-              key="2"
-              style={styles.input}
-              onChange={this.updateColor} />
-            {errorText(this.state.color2valid)}
-          </label>
-        </div>
-        <div style={styles.colorBoxContainer}>
-          <ColorBox color1={this.state.color1} color2={this.state.color2} />
-        </div>
+        <ColorInput
+          color={1}
+          valid={this.state.color1valid}
+          updateColor={this.updateColor} />
+        <ColorInput
+          color={2}
+          valid={this.state.color2valid}
+          updateColor={this.updateColor} />
+        <ColorBox color1={this.state.color1} color2={this.state.color2} />
       </div>
     );
   }
